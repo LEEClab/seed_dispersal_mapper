@@ -1,0 +1,27 @@
+#importa large file @john
+
+cd "E:\__data_2016\____John\___Consultorias\__Arnaldo\__Data\floresta_FBDS_albers_ha"
+r.in.gdal in=floresta_FBDS_albers_ha_area_Pilot.tif out=floresta_FBDS_albers_ha_area_Pilot
+
+#r=`g.mlist rast pattern="*class*" sep=comma`
+
+r.mapcalc "floresta_FBDS_albers_ha_area_Pilot_bin=if(floresta_FBDS_albers_ha_area_Pilot>0,1,0)"
+r.mapcalc "floresta_FBDS_albers_ha_area_Pilot_bin2=if(isnull(floresta_FBDS_albers_ha_area_Pilot_bin),0,1)"
+
+cd "E:\__data_2016\____John\___Consultorias\__Arnaldo\__Data\pasto_area_piloto"
+r.in.gdal in=pastofinal.tif out=pastofinal
+
+
+r.mapcalc "$pastofina_binl =if (isnull(pastofinal),0,1)"
+r.mapcalc "map_seed_rain_maxVal_by_pasture = map_seed_rain_maxVal*$pastofina_binl" --o
+
+r.mapcalc "map_seed_rain_maxVal_by_pasture_nodata = map_seed_rain_maxVal*pastofinal" --o
+
+
+
+
+
+cd "E:\__data_2016\____John\___Consultorias\__Arnaldo\__Data\resultado_piloto"
+r.out.gdal input=map_seed_rain_maxVal_by_pasture out=map_seed_rain_maxVal_by_pasture_v02.tif nodata=-9999
+r.out.gdal input=map_seed_rain_maxVal_by_pasture_nodata out=map_seed_rain_maxVal_by_pasture_nodata.tif nodata=-9999
+

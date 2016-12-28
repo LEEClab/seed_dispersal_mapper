@@ -1,0 +1,5 @@
+#importa large file @john
+
+cd "E:\__data_2016\____John\___Consultorias\__Arnaldo\__Data\FDBS_floresta_raster10m_john"
+r.in.gdal in=SP_floresta_CE_10m.tif out=SP_floresta_CE_10m
+r.in.gdal in=SP_floresta_MA_albers.tif out=SP_floresta_MA_albers
