@@ -1,7 +1,7 @@
 #!/c/Python25 python
 #---------------------------------------------------------------------------------------
 """
- Seed Dispersal Mapper v. 1.0
+ Seed Dispersal Mapper
  
  Bernardo B. S. Niebuhr - bernardo_brandaum@yahoo.com.br
  John W. Ribeiro - jw.ribeiro.rc@gmail.com
@@ -12,7 +12,7 @@
  Rio Claro - SP - Brasil
  
  This script runs in GRASS GIS 7.0.X environment.
- Usage: python seed_dispersal_mapper_v1_0.py
+ Usage: python seed_dispersal_mapper.py
  
  The Seed Dispersal Mapper uses a raster map of habitat/forest area to predict the chance
  of seed deposition in the matrix  (or, alternatively, in specific land use classes such as pasture), 
@@ -44,14 +44,14 @@ import os, sys
 # Users must change these parameters
 
 # Folder for output maps (they are generated inside GRASS GIS Location and also exported in this folder)
-dirfolder = r"/home/leecb/Documentos/UNESP/artigos/manuscrito_Niebuhr_etal_2017_seed_rain_chance_N&C/Validation/results_model_landscape"
+dirfolder = "/home/leecb/Documentos/UNESP/artigos/manuscrito_Niebuhr_etal_2017_seed_rain_chance_N&C/Validation/results_model_landscape"
 
 # Patch size map (name inside GRASS GIS)
-patch_map = 'floresta_1985_bin_dila_0m_orig_clump_mata_limpa_AreaHA'
+patch_map = 'floresta_1995_bin_dila_0m_orig_clump_mata_limpa_AreaHA'
 
 # Pasture matrix map (name inside GRASS GIS), if applicable
 # If absent (= ''), seed dispersal is generated for all matrices only
-pasture_map = 'pasto_1985_bin' # or ''
+pasture_map = 'pasto_1995_bin' # or ''
 
 # Patch size limits - for defining the patch size classes
 # In this case, the classes are: 1. 0-10ha; 2. 10-25ha; 3. 25-50ha; 4. 50-250ha; 5. >250ha
@@ -76,11 +76,6 @@ export_all_maps = False
 
 # Option: export final seed dispersal maps (or keep them only inside GRASS GIS)? True or False
 export_final_maps = True
-
-# Command to generate the maps
-# DO NOT CHANGE THIS
-InstanceMain = Main(patch_map, scales_limit, parms, dirfolder, pasture_map)
-InstanceMain.Run()
 
 #----------------------------------------------------------------------------------
 # Class Seed Deposition Curves
@@ -355,7 +350,7 @@ class Seed_Deposition_Curves(object):
         
         # Method options: average, count, median, mode, minimum, min_raster, maximum, max_raster, stddev, range, sum, variance, diversity
         if skip_matrix_map_creation == False:
-            name_rseries = 'map_seed_rain_' + method + '_' + function
+            name_rseries = 'map_seed_rain_' + self.patch_map + '_' + method + '_' + function
             
             try:
                 print ("genereting summary raster, method: "+method)
@@ -411,13 +406,19 @@ class Main(Seed_Deposition_Curves):
         '''
         
         # Generating maps of patch size classes
-        Seed_Deposition_Curves.generate_size_class_maps(self, skip_map_creation=True)
+        Seed_Deposition_Curves.generate_size_class_maps(self, skip_map_creation=False)
         
         # Generating distance and seed deposition maps for each size class
-        Seed_Deposition_Curves.generate_distance_seed_deposition_maps(self, function = function, skip_dist_map_creation=True, skip_seed_map_creation=False)
+        Seed_Deposition_Curves.generate_distance_seed_deposition_maps(self, function = function, skip_dist_map_creation=False, skip_seed_map_creation=False)
         
         # Creating summary seed dispersal map
         Seed_Deposition_Curves.create_summary_maps(self, method="maximum", function = function)
         # Other examples
         #Seed_Deposition_Curves.create_summary_maps(self, method="sum")
         #Seed_Deposition_Curves.create_summary_maps(self, method="average")
+ 
+#----------------------------------------------------------------------------        
+# Command to generate the maps
+# DO NOT CHANGE THIS
+InstanceMain = Main(patch_map, scales_limit, parms, dirfolder, pasture_map, export_all_maps, export_final_maps)
+InstanceMain.Run()
