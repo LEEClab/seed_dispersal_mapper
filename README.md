@@ -10,7 +10,7 @@ It implicitly considers animal movement as a proxy for understanding seed rain p
 - larger patches generally have frugivores that are able to disperse plant seeds farther than those present in smaller fragments
 - the closer the patches are, the greater the seed rain chance among them
 
-This script runs in GRASS GIS 7.0.X environment.
+This script runs in GRASS GIS 7.0.X environment, in principle in any operational system where GRASS GIS is supported (Linux, MacOS, Windows).
 
 Usage: 
 ```
