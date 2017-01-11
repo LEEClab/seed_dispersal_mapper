@@ -25,8 +25,6 @@ If you need more information, send us an e-mail:
 - John Ribeiro <jw.ribeiro.rc@gmail.com>
 
 
-Laboratorio de Ecologia Espacial e Conservacao
-
+Laboratório de Ecologia Espacial e Conservação - LEEC
 Universidade Estadual Paulista - UNESP
-
 Rio Claro - SP - Brasil
