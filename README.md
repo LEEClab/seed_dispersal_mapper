@@ -12,13 +12,15 @@ The model implicitly considers animal movement as a proxy for understanding seed
 - larger patches generally have animal dispersers that are able to disperse plant seeds farther than those present in smaller fragments
 - the closer the patches are, the greater the seed rain chance and the natural regenerability among them
 
-The model uses the map of habitat patch area to divide habitat patches in size classes defined by the user. For each size class, a different dispersal kernel is applied to estimate seed dispersal and regenerability potential in the matrix around habitat patches. After that, seed dispersal maps for each patch size class are integrated using summary statistics. The limits of patch size classes, the parameters of dispersal kernels for each of them and the chosen summary statistics are all defined by the user in the beggining of the script. The input maps are also defined inside the script.
+The model uses the map of habitat patch area to divide habitat patches in size classes defined by the user. For each size class, a different dispersal kernel is applied to estimate seed dispersal and regenerability potential in the matrix around habitat patches. After that, seed dispersal maps for each patch size class are integrated using summary statistics (for instance, the maximum or the sum). The limits of patch size classes, the parameters of dispersal kernels for each of them and the chosen summary statistics are all defined by the user in the beggining of the script. The input maps are also defined inside the script.
+
+For helping users exploring seed dispersal kernels parameters and curves, we also share an [R script to do so](https://github.com/LEEClab/seed_dispersal_mapper/blob/master/exploring_seed_dispersal_curves.R).
 
 ## Usage
 
-This script runs in GRASS GIS 7.0.X environment, in principle in any operational system where GRASS GIS is supported (Linux, MacOS, Windows). The input maps must be loaded inside GRASS GIS location before running the model. 
+This script runs in GRASS GIS 7.0.X environment, in principle in any operational system where GRASS GIS is supported (Linux, MacOS, Windows). The input maps must be loaded inside GRASS GIS location before running the model. For more information on how to import raster maps into GRASS, take a look [here](https://grasswiki.osgeo.org/wiki/Importing_data) and [there](https://grass.osgeo.org/grass72/manuals/rasterintro.html).
 
-After setting the parameters and input maps are set inside the script, start simulation by running:
+After the parameters and input maps are set inside the script, start simulation by running:
 ```
 python seed_dispersal_mapper_v1_0.py
 ```
