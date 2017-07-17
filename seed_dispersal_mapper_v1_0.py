@@ -289,41 +289,41 @@ class Seed_Deposition_Curves(object):
                     self.errorLog = "Problems in the function generate_distance_seed_deposition_maps "+ expression3
                     self.Logfile # chamand a funcao log
                     self.errorLog = ''             
-                 
-            if skip_seed_map_creation == False:
             
-                print 'running seed dispersal curves: %s' %i  
+            print 'running seed dispersal curves: %s' %i  
                     
-                par = parms[cont]
+            par = parms[cont]
                 
-                if function == 'weibull' or function == 'Weibull':
+            if function == 'weibull' or function == 'Weibull':
                     
-                    # par recebe um lista com dois valores para a equacao 
-                    # vale a pena testar no inicio - se nao for uma lista com dois argumentos, reclamar
-                    A_t = float(par[0])
-                    lambda_t = float(par[1])
-                    print str(par[0])+' '+str(par[1])
-                    
-                    d=i+'_hab_dist_pos'
-                    map_seed = i+'_seed_rain_weibull'
-                    self.map_names_seed_rain.append(map_seed)
-                    expression4 = map_seed+' = '+`A_t`+' * (1/'+`lambda_t`+') * exp(-('+d+'/'+`lambda_t`+'))'
-                    print expression4
+                # par recebe um lista com dois valores para a equacao 
+                # vale a pena testar no inicio - se nao for uma lista com dois argumentos, reclamar
+                A_t = float(par[0])
+                lambda_t = float(par[1])
+                print str(par[0])+' '+str(par[1])
                 
-                elif function == 'logistic' or function == 'Logistic':
-                    
-                    # par recebe um lista com tres valores para a equacao 
-                    # vale a pena testar no inicio - se nao for uma lista com tres argumentos, reclamar
-                    K = float(par[0])
-                    r_t = float(par[1])
-                    a_t = float(par[2])
-                    print str(par[0])+' '+str(par[1])+' '+str(par[2])
-                    
-                    d=i+'_hab_dist_pos'
-                    map_seed = i+'_seed_rain_logistic'
-                    self.map_names_seed_rain.append(map_seed)
-                    expression4 = map_seed+' = '+`K`+'/ (1 + exp(1.0/'+`r_t`+' * ('+d+' - '+`a_t`+')))'
-                    print expression4                    
+                d=i+'_hab_dist_pos'
+                map_seed = i+'_seed_rain_weibull'
+                self.map_names_seed_rain.append(map_seed)
+                expression4 = map_seed+' = '+`A_t`+' * (1/'+`lambda_t`+') * exp(-('+d+'/'+`lambda_t`+'))'
+                print expression4
+                
+            elif function == 'logistic' or function == 'Logistic':
+                
+                # par recebe um lista com tres valores para a equacao 
+                # vale a pena testar no inicio - se nao for uma lista com tres argumentos, reclamar
+                K = float(par[0])
+                r_t = float(par[1])
+                a_t = float(par[2])
+                print str(par[0])+' '+str(par[1])+' '+str(par[2])
+                
+                d=i+'_hab_dist_pos'
+                map_seed = i+'_seed_rain_logistic'
+                self.map_names_seed_rain.append(map_seed)
+                expression4 = map_seed+' = '+`K`+'/ (1 + exp(1.0/'+`r_t`+' * ('+d+' - '+`a_t`+')))'
+                print expression4                    
+                
+            if skip_seed_map_creation == False:
                 
                 try:
                     grass.mapcalc(expression4, overwrite = True, quiet = True)
